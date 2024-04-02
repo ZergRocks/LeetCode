@@ -7,10 +7,10 @@
 class Solution:
     def averageOfLevels(self, root: Optional[TreeNode]) -> List[float]:
         average_list = []
-        node_stack = [root]
+        node_queue = [root]
         while True:
-            level_nodes = [node for node in node_stack]
-            node_stack = []
+            level_nodes = [node for node in node_queue]
+            node_queue = []
             total = 0
             count = 0
             for node in level_nodes:
@@ -18,9 +18,9 @@ class Solution:
                     total += node.val
                     count += 1
                 if node.left is not None:
-                    node_stack.append(node.left)
+                    node_queue.append(node.left)
                 if node.right is not None:
-                    node_stack.append(node.right)
+                    node_queue.append(node.right)
             if count != 0:
                 average_list.append(total/count)
             else:

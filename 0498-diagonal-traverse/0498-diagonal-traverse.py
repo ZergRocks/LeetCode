@@ -5,33 +5,31 @@ class Solution:
 
         m, n = len(mat), len(mat[0])
         result = []
-
-        # 각 대각선 방향에 대한 델타 값
-        directions = [(-1, 1), (1, -1)]
+        directions = [
+            (-1, 1), # up
+            (1, -1)  # down
+        ]
         row, col = 0, 0
-        direction = 0
+        is_going_up = False
 
         for _ in range(m * n):
             result.append(mat[row][col])
+            row += directions[is_going_up][0]
+            col += directions[is_going_up][1]
 
-            # 다음 요소의 좌표 계산
-            row += directions[direction][0]
-            col += directions[direction][1]
-
-            # 다음 요소가 행렬의 경계를 벗어나는 경우 방향 전환
             if row >= m:
                 row = m - 1
                 col += 2
-                direction = 1 - direction
+                is_going_up = not is_going_up
             elif col >= n:
                 col = n - 1
                 row += 2
-                direction = 1 - direction
+                is_going_up = not is_going_up
             elif row < 0:
                 row = 0
-                direction = 1 - direction
+                is_going_up = not is_going_up
             elif col < 0:
                 col = 0
-                direction = 1 - direction
-
+                is_going_up = not is_going_up
+            
         return result
